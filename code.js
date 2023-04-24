@@ -52,18 +52,33 @@ function pairDice() {
 function renderGraph() {
     for( let result = 2; result < results.length; result++){
         let newResultDiv = document.createElement('div')
-        newResultDiv.textContent = `You rolled a ${result} : ${results[result]} times`
+        let barGraph = document.createElement('div')
+
+        //style barGraph 
+        barGraph.style.width = '100%'
+        // barGraph.style.height = '90%'
+        // barGraph.style.backgroundColor = 'blue'
+        let span = document.createElement('span')
+
+        span.textContent = `You rolled a ${result} : ${results[result]} times`
+        newResultDiv.append(span)
+        // newResultDiv.textContent = `You rolled a ${result} : ${results[result]} times`
+
+        //style newResultDiv
         newResultDiv.style.marginLeft= '10px'
         newResultDiv.style.padding= '10px'
         newResultDiv.style.background= 'lightgray'
         newResultDiv.style.width= '110px'
-        newResultDiv.style.height= '30px'
+        newResultDiv.style.height= '300px'
         newResultDiv.style.fontSize = '15px'
 
+        newResultDiv.append(barGraph)
+        newResultDiv.insertBefore(barGraph, span)
         graph.append(newResultDiv)
+        // style graph
         graph.style.marginTop= '20px'
         graph.style.display='flex'
-    }
+    }  
 }
 
 // Next, add another button to your HTML and give it an id.This button should Roll 1000 pairs of dice!

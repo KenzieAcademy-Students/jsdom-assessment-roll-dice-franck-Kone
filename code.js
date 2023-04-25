@@ -8,9 +8,9 @@ let results = [null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 function rollDie() {
 
-    return Math.floor(Math.random()*6 + 1)
+    return Math.floor(Math.random() * 6 + 1)
 }
- 
+
 function sumTwoRolledDice(dice1, dice2) {
 
     return dice1 + dice2
@@ -44,20 +44,18 @@ function pairDice() {
     renderGraph()
 
     resultDiv.textContent = `You Rolled a ${diceResult}!`
+
+    changeBarGraphHeight()
+
 }
 
 // Then render each value of the results array inside of the "graph" div.
 
 // To do this, create a new function renderGraph().Have that function loop through the results array.For every value create a div and add it to the graph, adding the number into the div.
 function renderGraph() {
-    for( let result = 2; result < results.length; result++){
+    for (let result = 2; result < results.length; result++) {
         let newResultDiv = document.createElement('div')
-        let barGraph = document.createElement('div')
 
-        //style barGraph 
-        barGraph.style.width = '100%'
-        // barGraph.style.height = '90%'
-        // barGraph.style.backgroundColor = 'blue'
         let span = document.createElement('span')
 
         span.textContent = `You rolled a ${result} : ${results[result]} times`
@@ -65,20 +63,19 @@ function renderGraph() {
         // newResultDiv.textContent = `You rolled a ${result} : ${results[result]} times`
 
         //style newResultDiv
-        newResultDiv.style.marginLeft= '10px'
-        newResultDiv.style.padding= '10px'
-        newResultDiv.style.background= 'lightgray'
-        newResultDiv.style.width= '110px'
-        newResultDiv.style.height= '300px'
+        newResultDiv.style.marginLeft = '10px'
+        newResultDiv.style.padding = '10px'
+        newResultDiv.style.background = 'lightgray'
+        newResultDiv.style.width = '110px'
+        newResultDiv.style.height = '300px'
         newResultDiv.style.fontSize = '15px'
 
-        newResultDiv.append(barGraph)
-        newResultDiv.insertBefore(barGraph, span)
+
         graph.append(newResultDiv)
         // style graph
-        graph.style.marginTop= '20px'
-        graph.style.display='flex'
-    }  
+        graph.style.marginTop = '20px'
+        graph.style.display = 'flex'
+    }
 }
 
 // Next, add another button to your HTML and give it an id.This button should Roll 1000 pairs of dice!
@@ -88,10 +85,53 @@ function renderGraph() {
 let btnThousandRoll = document.getElementById('rollThousandTimes')
 btnThousandRoll.addEventListener('click', Roll1000Function)
 
-function Roll1000Function(){
-    for (let roll = 1; roll <= 1000; roll++ ) {
-      pairDice()
+function Roll1000Function() {
+    for (let roll = 1; roll <= 1000; roll++) {
+        pairDice()
     }
-    resultDiv.textContent = `You Rolled 1000 times!`
+    resultDiv.textContent = 'You Rolled 1000 times!'
+    changeBarGraphHeight()
 
 }
+
+function changeBarGraphHeight() {
+    let totalHeight = 0
+    let resultMax = Math.max(...results)
+    console.log(resultMax)
+    for (let result = 2; result < results.length; result++) {
+        totalHeight += results[result]
+
+
+    }
+    for (let child = 0; child < graph.children.length; child++) {
+        // graph.children[child].style.height = ((results[child + 2]/ totalHeight)*100) + "px"
+        console.log(results[child])
+        if (results[child] === resultMax) {
+            let barGraph = document.createElement('div')
+            barGraph.style.width = '100%'
+            barGraph.style.height = "90%"
+            barGraph.style.background = "blue"
+
+            graph.children[child].append(barGraph)
+            graph.children[child].insertBefore(barGraph, graph.children[child].firstChild)
+
+        } else if (results[child] < resultMax){
+
+            let barGraph = document.createElement('div')
+            barGraph.style.width = '100%'
+            barGraph.style.height = ((results[child + 2] / resultMax) * 90) + "%"
+            barGraph.style.background = "blue"
+
+            graph.children[child].append(barGraph)
+            graph.children[child].insertBefore(barGraph, graph.children[child].firstChild)
+
+        }
+
+
+    }
+}
+
+
+//style barGraph 
+        // barGraph.style.height = '90%'
+        // barGraph.style.backgroundColor = 'blue'

@@ -39,7 +39,6 @@ function renderGraph() {
         let span = document.createElement('span')
 
         span.textContent = `You rolled a ${result} : ${results[result]} times`
-        newResultDiv.append(span)
 
         newResultDiv.style.marginLeft = '10px'
         newResultDiv.style.padding = '10px'
@@ -47,6 +46,9 @@ function renderGraph() {
         newResultDiv.style.width = '110px'
         newResultDiv.style.height = '300px'
         newResultDiv.style.fontSize = '15px'
+        newResultDiv.append(span)
+  
+     
 
         graph.append(newResultDiv)
         graph.style.marginTop = '20px'
@@ -70,18 +72,54 @@ function barGraphHeightPairDice() {
         if (results[child +2] === resultMax) {
             let barGraph = document.createElement('div')
             barGraph.style.width = '100%'
-            barGraph.style.height = "90%"
-            barGraph.style.background = "red"
+            barGraph.style.height = "270px"
+            barGraph.style.background = "darkred"
 
             graph.children[child].append(barGraph)
             graph.children[child].insertBefore(barGraph, graph.children[child].firstChild)
 
-        } else if (results[child +2] < resultMax){
+        } else if (results[child + 2] < resultMax && results[child + 2] >= (resultMax *(4/ 5))){
 
             let barGraph = document.createElement('div')
             barGraph.style.width = '100%'
-            barGraph.style.height = ((results[child + 2] / resultMax) * 90) + "%"
-            barGraph.style.background = "orange";
+            barGraph.style.height = ((results[child + 2] / resultMax) * 270) + "px"
+            barGraph.style.background = "red";
+
+            graph.children[child].append(barGraph);
+            graph.children[child].insertBefore(barGraph, graph.children[child].firstChild);
+        } else if (results[child + 2] < resultMax && results[child + 2] >= (resultMax * (3 / 5))){
+
+            let barGraph = document.createElement('div')
+            barGraph.style.width = '100%'
+            barGraph.style.height = ((results[child + 2] / resultMax) * 270) + "px"
+            barGraph.style.background = "darkgreen";
+
+            graph.children[child].append(barGraph);
+            graph.children[child].insertBefore(barGraph, graph.children[child].firstChild);
+        } else if (results[child + 2] < resultMax && results[child + 2] >= (resultMax * (2 / 5))) {
+
+            let barGraph = document.createElement('div')
+            barGraph.style.width = '100%'
+            barGraph.style.height = ((results[child + 2] / resultMax) * 270) + "px"
+            barGraph.style.background = "lightgreen";
+
+            graph.children[child].append(barGraph);
+            graph.children[child].insertBefore(barGraph, graph.children[child].firstChild);
+        } else if (results[child + 2] < resultMax && results[child + 2] >= (resultMax * (1 / 5))) {
+
+            let barGraph = document.createElement('div')
+            barGraph.style.width = '100%'
+            barGraph.style.height = ((results[child + 2] / resultMax) * 270) + "px"
+            barGraph.style.background = "darkblue";
+
+            graph.children[child].append(barGraph);
+            graph.children[child].insertBefore(barGraph, graph.children[child].firstChild);
+        } else if (results[child + 2] < resultMax && results[child + 2] < (resultMax * (1 / 5))) {
+
+            let barGraph = document.createElement('div')
+            barGraph.style.width = '100%'
+            barGraph.style.height = ((results[child + 2] / resultMax) * 270) + "px"
+            barGraph.style.background = "lightblue";
 
             graph.children[child].append(barGraph);
             graph.children[child].insertBefore(barGraph, graph.children[child].firstChild);
